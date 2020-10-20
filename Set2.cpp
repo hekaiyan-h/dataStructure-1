@@ -11,43 +11,44 @@ using namespace std;
 typedef int Status;
 typedef string ElemType;
 typedef struct Node {
-	ElemType data;//Êı¾İÔªËØ 
-	struct Node *next;//ÏÂÒ»¸ö½ÚµãµÄµØÖ·
-}Node,*PNode;//µ¥¸ö½ÚµãµÄ½á¹¹Ìå 
+	ElemType data;//æ•°æ®å…ƒç´  
+	struct Node *next;//ä¸‹ä¸€ä¸ªèŠ‚ç‚¹çš„åœ°å€
+}Node,*PNode;//å•ä¸ªèŠ‚ç‚¹çš„ç»“æ„ä½“ 
 
 typedef struct List{
-	PNode head;//¼¯ºÏµÄÍ·½Úµã
-	PNode tail;//¼¯ºÏÖĞµÄ×îºóÒ»¸öÔªËØËùÔÚ½Úµã 
-	int length;//¼¯ºÏÖĞÔªËØµÄ¸öÊı
+	PNode head;//é›†åˆçš„å¤´èŠ‚ç‚¹
+	PNode tail;//é›†åˆä¸­çš„æœ€åä¸€ä¸ªå…ƒç´ æ‰€åœ¨èŠ‚ç‚¹ 
+	int length;//é›†åˆä¸­å…ƒç´ çš„ä¸ªæ•°
 }List,*PList;
 
 Status ListLength(List L,int &index);
-Status InitList(List &L);//³õÊ¼»¯ÏßĞÔ±í                                 //ºÎ¿­ÑŞ 
-Status DestroyList(List &L);//Ïú»ÙÏßĞÔ±í 								//ºÎ¿­ÑŞ
+Status InitList(List &L);//åˆå§‹åŒ–çº¿æ€§è¡¨                                
+Status DestroyList(List &L);//é”€æ¯çº¿æ€§è¡¨ 								
 Status ClearList(List &L);
-Status ListEmpty(List L);//ÅĞ¶ÏÏßĞÔ±íÊÇ·ñÎª¿Õ                           //ÕÅÎ° 
-Status GetElem(List L,int index,ElemType &e);//»ñÈ¡ÏßĞÔ±íindexÎ»ÖÃµÄÔªËØ//³Â¾² 
-Status LocateElem(List L,ElemType e);//ÅĞ¶ÏeÊÇ·ñÔÚLÖĞ£¬ ²»ÔÚ·µ»Øfalse     //³Â¾² 
-Status Append(List &L,ElemType e);//Ìí¼Óeµ½ÏßĞÔ±íÄ©Î²               //ÇñÈóÃ÷
-//Status SetAppend(List &L,ElemType e);//Ìí¼ÓÔªËØµ½¼¯ºÏÖĞÄ¬ÈÏÅÅĞòÎ»ÖÃ£¬Ä¬ÈÏ°´ÕÕ×ÖµäË³ĞòÎ»ÖÃÅÅĞò 
-Status InsertElem(List &L,int index,ElemType e);//²åÈëeµ½indexÎ»ÖÃ      //ÇñÈóÃ÷ 
-Status removeElem(List &L,ElemType e);//É¾³ıÏßĞÔ±íÖĞeÔªËØ               //ÇñÈóÃ÷ 
-Status removeIndex(List &L,int index);//É¾³ıÏßĞÔ±íÖĞindexºÅÔªËØ         //ÇñÈóÃ÷ 
-Status removalReapted(List &L);//È¥³ıÏßĞÔ±íÖĞÖØ¸´ÔªËØ                   //ÇñÈóÃ÷ 
-Status sort(List &L,bool Bool=true);//¸øÏßĞÔ±íÅÅĞò£¬Ä¬ÈÏÉıĞò            //ÕÅÎ°
-Status printList(List L);
+Status ListEmpty(List L);//åˆ¤æ–­çº¿æ€§è¡¨æ˜¯å¦ä¸ºç©º                           
+Status GetElem(List L,int index,ElemType &e);//è·å–çº¿æ€§è¡¨indexä½ç½®çš„å…ƒç´  
+Status LocateElem(List L,ElemType e);//åˆ¤æ–­eæ˜¯å¦åœ¨Lä¸­ï¼Œ ä¸åœ¨è¿”å›false     
+Status Append(List &L,ElemType e);//æ·»åŠ eåˆ°çº¿æ€§è¡¨æœ«å°¾               
+//Status SetAppend(List &L,ElemType e);//æ·»åŠ å…ƒç´ åˆ°é›†åˆä¸­é»˜è®¤æ’åºä½ç½®ï¼Œé»˜è®¤æŒ‰ç…§å­—å…¸é¡ºåºä½ç½®æ’åº 
+Status InsertElem(List &L,int index,ElemType e);//æ’å…¥eåˆ°indexä½ç½®      
+Status removeElem(List &L,ElemType e);//åˆ é™¤çº¿æ€§è¡¨ä¸­eå…ƒç´                
+Status removeIndex(List &L,int index);//åˆ é™¤çº¿æ€§è¡¨ä¸­indexå·å…ƒç´          
+Status removalReapted(List &L);//å»é™¤çº¿æ€§è¡¨ä¸­é‡å¤å…ƒç´                    
+Status sort(List &L,bool Bool=true);//ç»™çº¿æ€§è¡¨æ’åºï¼Œé»˜è®¤å‡åº  
 
-Status CreateSet(List &L,ElemType *s,int length);//´´½¨¼¯ºÏ                            //°²¼Îç÷ 
+Status printList(List L);
+Status CreateSet(List &L,ElemType *s,int length);//åˆ›å»ºé›†åˆ                            
 Status CreateSet(List &L);
-Status DestroySet(List &L);//Ïú»Ù¼¯ºÏ                                   //°²¼Îç÷ 
-Status Union(List L1,List L2,List &L3);//²¢¼¯                           //°²¼Îç÷ 
-Status Intersection(List L1,List L2,List &L3);//½»¼¯                    //³Â¾² 
-Status Complement(List L1,List L2,List &L3);//²¹¼¯                      //ºÎ¿­ÑŞ 
-Status Difference(List L1,List L2,List &L3);//²î¼¯                      //ÕÅÎ° 
+Status DestroySet(List &L);//é”€æ¯é›†åˆ                                   
+Status Union(List L1,List L2,List &L3);//å¹¶é›†                           
+Status Intersection(List L1,List L2,List &L3);//äº¤é›†                    
+Status Complement(List L1,List L2,List &L3);//è¡¥é›†                      
+Status Difference(List L1,List L2,List &L3);//å·®é›†                      
 Status Copy(List L1,List &L2);
 Status strDeal(string *deal,int &length);
 bool isNum(string str);
 
+//å¤åˆ¶é›†åˆ
 Status Copy(List L1,List &L2){
 	if(!L1.head){
 		return ERROR;
@@ -61,6 +62,7 @@ Status Copy(List L1,List &L2){
 	return OK;
 }
 
+//æ±‚ä¸¤é›†åˆçš„è¡¥é›†
 Status Complement(List L1,List L2,List &L3){
 	PNode node_l2 = L2.head;
 	
@@ -74,6 +76,7 @@ Status Complement(List L1,List L2,List &L3){
 	return OK;
 }
 
+//æ±‚ä¸¤é›†åˆçš„å·®é›†
 Status Difference(List L1,List L2,List &L3){
 	PNode node_l1 = L1.head;
 	
@@ -87,6 +90,7 @@ Status Difference(List L1,List L2,List &L3){
 	return OK;
 }
 
+//æ±‚ä¸¤é›†åˆçš„äº¤é›†
 Status Intersection(List L1,List L2,List &L3){
 	PNode node_b = L2.head;
 	
@@ -100,6 +104,7 @@ Status Intersection(List L1,List L2,List &L3){
 	return OK;
 }
 
+//æ±‚ä¸¤é›†åˆå¹¶é›†
 Status Union(List L1,List L2,List &L3){
 	PNode node_l2 = L2.head;
 	Copy(L1,L3);
@@ -115,6 +120,7 @@ Status Union(List L1,List L2,List &L3){
 	
 }
 
+//åˆ›å»ºæ–°çš„é›†åˆ
 Status CreateSet(List &L,ElemType *s,int length){
 	if(InitList(L)){
 		for(int i=0;i<length;i++){
@@ -122,7 +128,7 @@ Status CreateSet(List &L,ElemType *s,int length){
 				Append(L,s[i]);
 			}
 		}
-		sort(L);//ÅÅĞò 
+		sort(L);//æ’åº 
 		return OK;
 	}	
 	
@@ -137,7 +143,7 @@ Status CreateSet(List &L){
 	return ERROR;
 }
 
-//Ïú»Ù¼¯ºÏ 
+//é”€æ¯é›†åˆ 
 Status DestroySet(List &L){
 	DestroyList(L);
 }
@@ -168,7 +174,7 @@ Status sort(List &L,bool Bool){
 		}
 		current = current->next;
 	} 
-	//Êı×ÖÅÅĞò
+	//æ•°å­—æ’åº
 	if(flag){
 		if(Bool){		
 			for(int i = L.length;i>=2;i--){
@@ -196,7 +202,7 @@ Status sort(List &L,bool Bool){
 			}
 		}
 	}else{
-			//×Ö·ûÅÅĞò 
+			//å­—ç¬¦æ’åº 
 		if(Bool){		
 			for(int i = L.length;i>=2;i--){
 				current = L.head->next;
@@ -241,6 +247,7 @@ bool isNum(string str)
     return true;
 }
 
+//åˆ å»é‡å¤å…ƒç´ 
 Status removeReated(List &L){
 	if(!L.head){
 		return ERROR;
@@ -266,6 +273,8 @@ Status removeReated(List &L){
 	
 	return OK;
 }
+
+//è¿”å›é›†åˆé•¿åº¦
 Status ListLength(List L,int &index){
 	if(!L.head){
 		return ERROR;
@@ -302,7 +311,7 @@ Status DestroyList(List &L){
 //	} 
 	
 //	free(L.head);
-//printf("Ïú»Ù³É¹¦");
+//printf("é”€æ¯æˆåŠŸ");
 	return OK;
 }
 Status ClearList(List &L){
@@ -356,43 +365,6 @@ Status LocateElem(List L,ElemType e){
 	
 	return FALSE;
 }
-//Status SetAppend(List &L,ElemType e){
-//	if(!L.head || LocateElem(L,e)){ 
-//		return ERROR;
-//	}
-//	
-//	PNode newNode = new Node;//(PNode)malloc(sizeof(Node));
-//	newNode->data = e;
-//	if(L.length == 0){
-//		newNode->next = NULL;
-//		L.head->next = newNode;
-//		L.tail = newNode;
-//	}else{
-//		PNode current = L.head->next;
-//	
-//		while(current != L.tail){
-//			if((current->data < e && e < current->next->data) || (current->data > e && e > current->next->data)){
-//				newNode->next = current->next;
-//				current->next= newNode;
-//				L.length++;
-//				return OK;
-//			}
-//			current = current->next;
-//		}
-//	
-//		if(e<L.head->next->data && L.head->next->data < L.tail->data){//Í·²å 
-//			newNode->next = L.head->next;
-//			L.head->next = newNode;
-//		}else{//Î²²å 
-//			newNode->next = NULL;
-//			L.tail->next = newNode;
-//			L.tail = newNode;
-//		} 
-//	}
-//	
-//	L.length++;
-//	return OK;
-//}
 
 Status Append(List &L,ElemType e){
 	if(!L.head){
@@ -523,15 +495,15 @@ void inputSet(List &set){
 		int count_former = count(str.begin(),str.end(),'{');
 		int count_later = count(str.begin(),str.end(),'}');
 		int count_Elem = count(str.begin(),str.end(),',')+1;
-		//¼ì²éÊäÈëºÏ·¨ĞÔ
+		//æ£€æŸ¥è¾“å…¥åˆæ³•æ€§
 		if(former != 0 || later != str.length()-1 || count_former != 1 || count_later != 1){ 
-			cout<<"ÊäÈëÓĞÎó:ÇëÖØĞÂÊäÈë:";
+			cout<<"è¾“å…¥æœ‰è¯¯:è¯·é‡æ–°è¾“å…¥:";
 		}else{
 			deal = new string[count_Elem];	
 	
 			str[0] = ',';
 			str[str.length()-1] = ',';
-			//ÌáÈ¡ÔªËØ 
+			//æå–å…ƒç´  
 			for(int current = 0,next,i=0;current < str.length() && i < count_Elem;i++){
 				next = str.find_first_of(',',current+1);
 				deal[i] = str.substr(current+1,next-current-1);
@@ -548,39 +520,49 @@ void inputSet(List &set){
 }
 
 int main(){
-	cout<<"¼¯ºÏÊäÈëÊ¾Àı£º{1,2,3,4,8}»ò{\"word\",\"ppt\",\"append\"}»ò{'a','b','c','f'}"<<endl; 
+	cout<<"\t\t\té›†åˆè¾“å…¥ç¤ºä¾‹ï¼š{1,2,3,4,8}æˆ–{\"word\",\"ppt\",\"append\"}æˆ–{'a','b','c','f'}"<<endl; 
 	while(1){
 Lab:	List set1;
 		List set2;
 		List set3;
 		CreateSet(set3);
-		cout<<"ÇëÊäÈë¼¯ºÏA:"; 
+		//cout<<"\t"<<"â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”"<<endl;
+		cout<<"\t\t\tè¯·è¾“å…¥é›†åˆA:"; 
 		inputSet(set1);
-		cout<<"ÇëÊäÈë¼¯ºÏB:";
+		cout<<"\t\t\tè¯·è¾“å…¥é›†åˆB:";
 		inputSet(set2);
+		cout<<endl;
 		
-		cout<<"1.Çó½»¼¯:A¡ÉB"<<endl;
-		cout<<"2.Çó²¢¼¯:AUB"<<endl;
-		cout<<"3.Çó²¹¼¯:!A£¨AUBÎªÈ«¼¯£©"<<endl;
-		cout<<"4.Çó²¹¼¯:!B£¨AUBÎªÈ«¼¯£©"<<endl;
-		cout<<"5.Çó²î¼¯:A-B"<<endl;
-		cout<<"6.Çó²î¼¯:B-A"<<endl;
-		cout<<"7.ÖØĞÂÊäÈë¼¯ºÏ"<<endl;
-		cout<<"8.ÍË³ö"<<endl;
+	    cout<<"\t\t\t"<<"1 äº¤é›†:Aâˆ©B"<<"   "<<"2 å¹¶é›†:AUB"<<"   "<<"3 è¡¥é›†:!Aï¼ˆAUBä¸ºå…¨é›†ï¼‰"<<"  "<<"4 è¡¥é›†:!Bï¼ˆAUBä¸ºå…¨é›†ï¼‰"<<endl;
+	    cout<<endl;
+	    cout<<"\t\t\t"<<"5 å·®é›†:A-B"<<"       "<<"6 å·®é›†:B-A"<<"   "<<"7 é‡æ–°è¾“å…¥é›†åˆ"<<"    "<<"8 é€€å‡º"<<endl;
+	    cout<<"\t"<<"â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”"<<endl;
+	    //cout<<"\t\t\tè¯·é€‰æ‹©æ“ä½œ:";
+
+		/*
+		cout<<"1.æ±‚äº¤é›†:Aâˆ©B"<<endl;
+		cout<<"2.æ±‚å¹¶é›†:AUB"<<endl;
+		cout<<"3.æ±‚è¡¥é›†:!Aï¼ˆAUBä¸ºå…¨é›†ï¼‰"<<endl;
+		cout<<"4.æ±‚è¡¥é›†:!Bï¼ˆAUBä¸ºå…¨é›†ï¼‰"<<endl;
+		cout<<"5.æ±‚å·®é›†:A-B"<<endl;
+		cout<<"6.æ±‚å·®é›†:B-A"<<endl;
+		cout<<"7.é‡æ–°è¾“å…¥é›†åˆ"<<endl;
+		cout<<"8.é€€å‡º"<<endl;
+		*/
 		while(1){
-			cout<<"ÇëÑ¡Ôñ²Ù×÷£º";
+			cout<<"\t\t\tè¯·é€‰æ‹©æ“ä½œï¼š";
 			int ch;
 			cin>>ch;
 			switch(ch){
-				case 1:Intersection(set1,set2,set3);cout<<set3;ClearList(set3);break;//½»¼¯ 
-				case 2:Union(set1,set2,set3);cout<<set3;ClearList(set3);break;//²¢¼¯ 
-				case 3:Complement(set1,set2,set3);cout<<set3;ClearList(set3);break;//!A£¨AUBÎªÈ«¼¯£©
-				case 4:Complement(set2,set1,set3);cout<<set3;ClearList(set3);break;//!B£¨AUBÎªÈ«¼¯£© 
+				case 1:Intersection(set1,set2,set3);cout<<set3;ClearList(set3);break;//äº¤é›† 
+				case 2:Union(set1,set2,set3);cout<<set3;ClearList(set3);break;//å¹¶é›† 
+				case 3:Complement(set1,set2,set3);cout<<set3;ClearList(set3);break;//!Aï¼ˆAUBä¸ºå…¨é›†ï¼‰
+				case 4:Complement(set2,set1,set3);cout<<set3;ClearList(set3);break;//!Bï¼ˆAUBä¸ºå…¨é›†ï¼‰ 
 				case 5:Difference(set1,set2,set3);cout<<set3;ClearList(set3);break;//A-B
 				case 6:Difference(set2,set1,set3);cout<<set3;ClearList(set3);break;//B-A
-				case 7:DestroySet(set1);DestroySet(set2);DestroySet(set3);goto Lab;//ÖØĞÂÊäÈë¼¯ºÏ 
-				case 8:DestroySet(set1);DestroySet(set2);DestroySet(set3);exit(0);//ÍË³ö 
-				default:cout<<"²Ù×÷ÓĞÎó!"; break;
+				case 7:DestroySet(set1);DestroySet(set2);DestroySet(set3);goto Lab;//é‡æ–°è¾“å…¥é›†åˆ 
+				case 8:DestroySet(set1);DestroySet(set2);DestroySet(set3);exit(0);//é€€å‡º 
+				default:cout<<"\t\t\tæ“ä½œæœ‰è¯¯!"; break;
 			}	
 		}	
 	}
